@@ -1,18 +1,20 @@
 <template>
   <div id="app">
-   
-    6666666
+    <NavBanner/>
+    <detail/>
+    <NavFooter/>
   </div>
 </template>
 
 <script>
-
-
+//引入detail详情页
+import detail from "../src/pages/detail";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-  }
-}
+    detail,
+  },
+};
 </script>
 
 <style>
@@ -22,6 +24,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 </style>
