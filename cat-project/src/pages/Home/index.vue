@@ -50,7 +50,7 @@
           <div
             class="goods"
             v-for="goodsList in goodsList.goodsList"
-            @click="$router.push(`/detail/?goodsId=${goodsList.goodsId}`)"
+            @click="$router.push(`/detail?goodsId=${goodsList.goodsId}`)"
             :key="goodsList.goodsId"
           >
             <div class="goods-item">

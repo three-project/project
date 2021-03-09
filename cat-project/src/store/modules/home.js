@@ -1,4 +1,4 @@
-import { reqgetGoodsList, reqLogin, reqRegister, reqVerify, reqUserBalance } from '@/api'
+import { reqgetGoodsList, reqLogin, reqRegister, reqVerify } from '@/api'
 // 引入usetTempId
 import { getToken, getUserTempId, saveToken } from '@/utils'
 
@@ -14,7 +14,7 @@ const state = {
 const mutations = {
     RECEIVE_GOODS_List(state, goodsList) {
         // console.log('goodsList', goodsList.data.goodsList)
-        let result = goodsList.data.goodsList // 商品列表数组
+        // let result = goodsList.data.goodsList  商品列表数组
         state.goodsList = goodsList
     },
     // 直接修改用户信息
@@ -67,13 +67,12 @@ const actions = {
         }
 
     },
-    async getVerifyCodes({ commit }, { email }) {
-        const result = await reqVerify(email)
-    },
     // 注册
     async register({ commit }, { email, password, verifyCode }) {
         const result = await reqRegister(email, password, verifyCode)
-        throw new Error(result.message || '注册失败')
+        if (result.data.code !== 10000) {
+            throw new Error(result.message || '注册失败')
+        }
     },
     /* //调用商品基本信息的数组
     async reqgetGoodsInfoList({ commit }) {

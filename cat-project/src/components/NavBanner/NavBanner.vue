@@ -53,14 +53,7 @@
             />
           </el-input>
           <!-- 注册页面才有的 -->
-          <el-input v-if="!isLogin" v-model="password" type="password">
-            <img slot="prefix" src="../../assets/image/pwd.png" />
-            <img
-              slot="suffix"
-              src="../../assets/image/showfalse.png"
-              class="eyes"
-            />
-          </el-input>
+
           <el-input
             v-if="!isLogin"
             placeholder="邮箱验证码"
@@ -121,11 +114,10 @@ export default {
       sizeList: ["large", "medium", "small"],
       centerDialogVisible: false,
       isLogin: true,
-      email: "",
-      password: "",
+      email: "461792272@qq.com",
+      password: "123456",
       verifyCode: "", // 邮箱验证码
       time: 60,
-      getCode: "", //存储邮箱验证码
     };
   },
   computed: {
@@ -163,13 +155,15 @@ export default {
     //发送邮箱验证码
     async getVerifyCode() {
       try {
-        const result = await this.$API.reqVerify(this.email);
+        // eslint-disable-next-line no-unused-vars
         // console.log(this.email);
-        this.getCode = result.data;
+        const result = await this.$API.reqVerify(this.email);
+
         this.$message.success("验证码发送成功");
         this.timeId = setInterval(() => {
-          if (this.time <= 0) {
+          if (this.time <= 1) {
             clearInterval(this.timeId);
+            this.time = 60;
           } else {
             this.time--;
           }
@@ -192,6 +186,8 @@ export default {
       } catch (error) {
         this.$message.error(error.message);
         this.centerDialogVisible = false;
+        clearInterval(this.timeId);
+        this.time = 0;
       }
     },
   },
